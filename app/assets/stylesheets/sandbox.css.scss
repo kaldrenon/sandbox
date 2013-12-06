@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.sandbox {
+  width: 500px;
+  padding: 20px;
+  .row {
+    margin: 0;
+  }
+}
 .sand-select-container {
   width: 250px;
 

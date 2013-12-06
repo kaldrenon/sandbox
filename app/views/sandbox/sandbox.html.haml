@@ -1,7 +1,23 @@
 .sandbox
-  .sand-select-container
-    %select.select2-test
-      %option One
-      %option Two
-      %option Three
-      %option Four
+  .row
+    %h4 Email Validation UI
+    .email-validation-test
+      %input.email-address.form-control{ type: 'email', placeholder: 'Email address' }
+      %a.btn.btn-default Test
+      %br
+      %span.alerts.text-danger
+  %hr
+  .row
+    %h4 Select2 manipulation
+    .sand-select-container
+      %select.select2-test{id: 'foo'}
+        %option{ 'data-id' => '1' } One
+        %option{ 'data-id' => '2' } Two
+        %option{ 'data-id' => '3' } Three
+        %option{ 'data-id' => '4' } Four
+    .sand-select-container
+      %select.select2-test{id: 'bar'}
+        %option{ 'data-id' => '1' } One
+        %option{ 'data-id' => '2' } Two
+        %option{ 'data-id' => '3' } Three
+        %option{ 'data-id' => '4' } Four

@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.16'
 gem 'rake', '10.1.0'
 gem 'thin'
+gem 'towerdata-rails', git: 'git://github.com/eLocal/towerdata-rails.git'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
