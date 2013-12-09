@@ -5,6 +5,7 @@
 jQuery ->
   $(document).ready ->
     # Run once at first load
+    window.current_email_verified = false
     apply_select('.select2-test')
 
   #
@@ -16,18 +17,28 @@ jQuery ->
   $(document).on 'click', '.btn-email-validate', (event) ->
     validate_email($(event.currentTarget))
 
-  validate_email = (target) ->
-    $('.loading').show(100)
+  $(document).on 'keyup', '.email-address', (event) ->
+    window.current_email_verified = false
+    clearTimeout(validation_typing_timeout) if (typeof validation_typing_timeout != 'undefined')
+    window.validation_typing_timeout = setTimeout( ->
+      validate_email($(event.currentTarget))
+    , 1000)
 
-    data = { email: $(target).val() }
-    $.post('/sandbox/email_validation', data, (result) ->
-      $('.alerts').html(result)
-      $('.loading').hide(100)
-    )
+  validate_email = (target) ->
+    if !current_email_verified
+      $('.loading').show(100)
+
+      data = { email: $(target).val() }
+      $.post('/sandbox/email_validation', data, (result) ->
+        $('.alerts').html(result)
+        $('.loading').hide(100)
+        window.current_email_verified = true
+      )
 
   $(document).on 'click', '.tde-correction-link, .tde-correction-address', (event) ->
     $('.email-address').val($(event.currentTarget).text())
     $('.tde-corrections').hide('slow')
+    window.current_email_verified = true
 
   #
   # Select2 Manipulation

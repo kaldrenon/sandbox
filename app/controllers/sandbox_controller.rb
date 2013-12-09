@@ -14,5 +14,7 @@ class SandboxController < ApplicationController
 
     @tde = TowerData.validate_email(@email)
     @corrections = @tde.corrections
+
+    render partial: 'email_validation', layout: false
   end
 end
