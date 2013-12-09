@@ -3,8 +3,10 @@
     %h4 Email Validation UI
     .email-validation-test
       %input.email-address.form-control{ type: 'email', placeholder: 'Email address' }
-      %a.btn.btn-default Test
+      %a.btn.btn-default.btn-email-validate Test
       %br
+      %span.loading.hide
+        = image_tag('tiny-loader2.gif')
       %span.alerts.text-danger
   %hr
   .row

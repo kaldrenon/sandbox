@@ -4,8 +4,6 @@
 
 jQuery ->
   $(document).ready ->
-    $('body').prepend('<h4 style="display: none;">Sandbox</h4>')
-    $('h4').show(500)
     # Run once at first load
     apply_select('.select2-test')
 
@@ -13,9 +11,23 @@ jQuery ->
   # Email Validation UI
   #
   $(document).on 'change', '.email-address', (event) ->
-    $('.alerts').hide().html($(event.currentTarget).val()).show('slow')
+    validate_email($(event.currentTarget))
 
-    $('.alerts').load('/')
+  $(document).on 'click', '.btn-email-validate', (event) ->
+    validate_email($(event.currentTarget))
+
+  validate_email = (target) ->
+    $('.loading').show(100)
+
+    data = { email: $(target).val() }
+    $.post('/sandbox/email_validation', data, (result) ->
+      $('.alerts').html(result)
+      $('.loading').hide(100)
+    )
+
+  $(document).on 'click', '.tde-correction-link, .tde-correction-address', (event) ->
+    $('.email-address').val($(event.currentTarget).text())
+    $('.tde-corrections').hide('slow')
 
   #
   # Select2 Manipulation

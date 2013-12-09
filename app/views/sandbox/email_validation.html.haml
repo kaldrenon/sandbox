@@ -1,0 +1,10 @@
+.tde-corrections
+  - if @corrections
+    %b.text-error Did you mean:
+    %span
+      - @corrections.each do |address|
+        %span.tde-correction-link
+          %a.tde-correction-address= address
+      ?
+  - else
+    %b.text-success Submitted
