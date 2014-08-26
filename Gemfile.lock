@@ -106,6 +106,7 @@ GEM
     mime-types (1.25.1)
     multi_json (1.8.2)
     multi_xml (0.5.5)
+    pg (0.17.1)
     phantomjs (1.9.2.0)
     polyglot (0.3.3)
     pry (0.9.12.4)
@@ -210,13 +211,13 @@ DEPENDENCIES
   jquery-ui-rails
   less-rails (~> 2.3.2)
   mailcatcher
+  pg
   pry-rails
   rails (= 3.2.16)
   rake (= 10.1.0)
   rspec-rails
   sass-rails (~> 3.2.3)
   select2-rails
-  sqlite3
   teaspoon
   therubyracer
   thin
