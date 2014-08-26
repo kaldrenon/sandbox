@@ -1,8 +1,17 @@
 .sandbox
+  %h1 Slider Controls
   .slider-container
 
+    .input-group
+      %input{ id: 'weekdays', type: 'checkbox' }
+      %label{ for: 'weekdays' } Identical Weekdays
+
+    %br
+    %br
 
   %hr
+
+  %h1 Calendar Grid
 
   .cal-grid-container
     .legend
@@ -19,6 +28,7 @@
           &nbsp;
         - (0..23).each do |time|
           %span= "%02d:00" % time
+          %span= "%02d:30" % time
 
     .cal-grid-container{ class: "cal-grid-#{@num_cols}" }
       - @columns.each do |column|
@@ -27,3 +37,4 @@
             = column[:name]
           - (0..23).each do |time|
             .cal-grid-time-block{ data: { time: time, day: column[:name] } }
+            .cal-grid-time-block{ data: { time: time + 0.5, day: column[:name] } }

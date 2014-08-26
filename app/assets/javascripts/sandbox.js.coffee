@@ -83,3 +83,10 @@ jQuery ->
 
   create_range_bar(day) for day in ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   inject_range_bar(bar) for bar in range_bars
+
+
+  $(document).on 'change', '#weekdays', (event) ->
+    target = $(event.currentTarget)
+
+    if target.prop('checked') == true
+      console.log 'checked'
