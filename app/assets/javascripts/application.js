@@ -15,4 +15,6 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require select2
+//= require elessar/dist/elessar
+//= require moment/moment
 //= require_tree .

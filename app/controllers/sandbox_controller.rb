@@ -6,6 +6,18 @@ require 'tower_data'
 #
 class SandboxController < ApplicationController
   def index
+    @columns = [
+      { name: 'Sunday' },
+      { name: 'Monday' },
+      { name: 'Tuesday' },
+      { name: 'Wednesday' },
+      { name: 'Thursday' },
+      { name: 'Friday' },
+      { name: 'Saturday' }
+    ]
+
+    @num_cols = @columns.length
+
     render 'sandbox'
   end
 

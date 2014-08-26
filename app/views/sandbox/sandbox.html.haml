@@ -1,25 +1,29 @@
 .sandbox
-  .row
-    %h4 Email Validation UI
-    .email-validation-test
-      %input.email-address.form-control{ type: 'email', placeholder: 'Email address' }
-      %a.btn.btn-default.btn-email-validate Test
-      %br
-      %span.loading.hide
-        = image_tag('tiny-loader2.gif')
-      %span.alerts.text-danger
+  .slider-container
+
+
   %hr
-  .row
-    %h4 Select2 manipulation
-    .sand-select-container
-      %select.select2-test{id: 'foo'}
-        %option{ 'data-id' => '1' } One
-        %option{ 'data-id' => '2' } Two
-        %option{ 'data-id' => '3' } Three
-        %option{ 'data-id' => '4' } Four
-    .sand-select-container
-      %select.select2-test{id: 'bar'}
-        %option{ 'data-id' => '1' } One
-        %option{ 'data-id' => '2' } Two
-        %option{ 'data-id' => '3' } Three
-        %option{ 'data-id' => '4' } Four
+
+  .cal-grid-container
+    .legend
+      .open-legend
+        %span.cal-grid-time-block.open &nbsp;
+        %span Open
+      .closed-legend
+        %span.cal-grid-time-block.closed &nbsp;
+        %span Closed
+
+    .cal-grid-time-list
+      .cal-grid-day
+        .cal-grid-day-name
+          &nbsp;
+        - (0..23).each do |time|
+          %span= "%02d:00" % time
+
+    .cal-grid-container{ class: "cal-grid-#{@num_cols}" }
+      - @columns.each do |column|
+        .cal-grid-day
+          .cal-grid-day-name
+            = column[:name]
+          - (0..23).each do |time|
+            .cal-grid-time-block{ data: { time: time, day: column[:name] } }
