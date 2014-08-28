@@ -71,7 +71,28 @@ label {
 }
 
 .elessar-handle {
+  overflow: visible;
   width: 1px;
+}
+
+.elessar-left-neighbor {
+  overflow: visible;
+}
+
+.elessar-merge-button {
+  position: relative;
+  right: 16px;
+  font-size: 0.8em;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 2px 4px;
+  border-radius: 20px;
+  display: inline;
+  overflow: visible;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+    .text-success { color: #DFD; }
+  }
 }
 
 

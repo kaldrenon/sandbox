@@ -15,10 +15,62 @@ class ElocalRangebar
     @object.on('changing', @changing)
 
     @rangebar = $(@object.$el)
+
     @element  = $(element)
     @element.data 'elocalRangebar', this
 
     @element.append(@rangebar)
+
+  # Fires during all intervals of the change process (slide/drag/etc)
+  changing: (event, values) =>
+    @update_ranges()
+
+  # Fires when a change cycle is over (user releases mouse, etc)
+  changed: (event, values) =>
+    @update_ranges()
+
+  # Modify the values and CSS classes of all ranges as needed
+  update_ranges: () =>
+    @raise_barlabels(@rangebar.find('.elessar-range'))
+    @add_connector_to_adjacent_ranges()
+
+  # Raise up barlabels for bars that are too small
+  raise_barlabels: (ranges) ->
+    $.each( ranges, (i, r) ->
+      label = $(r).find('.elessar-barlabel')
+
+      if $(r).width() < ($(label).width() * 1.1 )
+        $(label).addClass('elessar-barlabel-raised')
+      else
+        $(label).removeClass('elessar-barlabel-raised')
+    )
+
+  add_connector_to_adjacent_ranges: () =>
+    @rangebar.find('.elessar-range').removeClass('elessar-left-neighbor')
+    $('.elessar-merge-button').remove()
+
+    pairs = @object.val()
+    $.each( pairs, (i, pair) =>
+      if (pairs[i + 1] != undefined) && @are_adjacent(pair, pairs[i + 1])
+        console.log this
+        console.log @rangebar
+        console.log @rangebar.find('.elessar-range')
+        $(@rangebar.find('.elessar-range')[i]).addClass('elessar-left-neighbor')
+    )
+
+    $.each(@rangebar.find('.elessar-left-neighbor').find('.elessar-handle'), (i, handle) ->
+      if (i % 2) == 1
+        $(handle).append("<div class='elessar-merge-button'><i class='icon-plus text-success' /></div>")
+    )
+
+  # Determine if two ranges are adjacent
+  are_adjacent: (pair_one, pair_two) ->
+    pair_one[1] == pair_two[0]
+
+  merge_adjacent: (values, index_left) ->
+    values[index_left] = [values[index_left[0]], values[index_left + 1][1]]
+    values = values.slice(0, index_left + 1).concat(values.slice(index_left + 2, values.length))
+    @rangebar.val(values)
 
   mergeOptionsWithDefaults: (options) =>
     defaults = {
@@ -54,28 +106,3 @@ class ElocalRangebar
 
     return options
 
-  changing: (event, values) =>
-    range = $(event.currentTarget)
-    @update_ranges(range)
-
-    ranges = range.find('.elessar-range')
-
-  changed: (event, values) =>
-    range = $(event.currentTarget)
-    @update_ranges(range)
-
-    ranges = range.find('.elessar-range')
-
-    console.log @object.val()
-
-  update_ranges: (range_bar) =>
-    ranges = range_bar.find('.elessar-range')
-
-    $.each( ranges, (i, r) ->
-      label = $(r).find('.elessar-barlabel')
-
-      if $(r).width() < ($(label).width() * 1.1 )
-        $(label).addClass('elessar-barlabel-raised')
-      else
-        $(label).removeClass('elessar-barlabel-raised')
-    )

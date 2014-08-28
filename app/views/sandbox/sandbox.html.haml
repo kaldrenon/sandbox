@@ -1,13 +1,13 @@
 .sandbox
   %h1 Slider Controls
   .slider-container
-    - @columns.each do |column|
-      %span= column[:name]
-      .elessar-rangebar-container
-
     .input-group
       %input{ id: 'weekdays', type: 'checkbox' }
       %label{ for: 'weekdays' } Identical Weekdays
+
+    - @columns.each do |column|
+      %span= column[:name]
+      .elessar-rangebar-container
 
     %br
     %br
