@@ -17,4 +17,5 @@
 //= require select2
 //= require elessar/dist/elessar
 //= require moment/moment
+//= require utils/elocal_rangebar
 //= require_tree .
