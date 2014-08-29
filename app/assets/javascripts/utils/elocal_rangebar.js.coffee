@@ -52,25 +52,34 @@ class ElocalRangebar
     pairs = @object.val()
     $.each( pairs, (i, pair) =>
       if (pairs[i + 1] != undefined) && @are_adjacent(pair, pairs[i + 1])
-        console.log this
-        console.log @rangebar
-        console.log @rangebar.find('.elessar-range')
         $(@rangebar.find('.elessar-range')[i]).addClass('elessar-left-neighbor')
     )
 
-    $.each(@rangebar.find('.elessar-left-neighbor').find('.elessar-handle'), (i, handle) ->
+    $.each(@rangebar.find('.elessar-left-neighbor').find('.elessar-handle'), (i, handle) =>
       if (i % 2) == 1
-        $(handle).append("<div class='elessar-merge-button'><i class='icon-plus text-success' /></div>")
+        div = "<div class='elessar-merge-button'><i class='icon-plus text-success' /></div>"
+        $(handle).append(div).find('.elessar-merge-button').on('click', @merge_adjacent)
     )
 
   # Determine if two ranges are adjacent
   are_adjacent: (pair_one, pair_two) ->
-    pair_one[1] == pair_two[0]
+    return pair_one[1] == pair_two[0]
 
-  merge_adjacent: (values, index_left) ->
-    values[index_left] = [values[index_left[0]], values[index_left + 1][1]]
+  merge_adjacent: (event) =>
+    target = $(event.currentTarget).closest('.elessar-range')
+    @join_ranges(@object.val(), @range_index(target))
+    return false
+
+  range_index: (range) ->
+    return @rangebar.find('.elessar-range').index(range)
+
+  join_ranges: (values, index_left) ->
+    console.log values
+    console.log index_left
+    values[index_left] = [values[index_left][0], values[index_left + 1][1]]
     values = values.slice(0, index_left + 1).concat(values.slice(index_left + 2, values.length))
-    @rangebar.val(values)
+    @object.val(values)
+    @update_ranges()
 
   mergeOptionsWithDefaults: (options) =>
     defaults = {
